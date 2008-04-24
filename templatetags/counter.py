@@ -1,48 +1,34 @@
 #!/usr/bin/env python
 # coding= utf-8
 from django import template
+from templateutils.utils import decode_tag_arguments, parse_tag_argument
 
 register = template.Library()
 
 class CounterNode(template.Node):
-    def __init__(self, name, start=0):
-        self.name = name
-        self.start = start
+    def __init__(self, arguments):
+        self.name = arguments['name']
+        self.start = arguments['start']
     
     def render(self, context):
-        if not context.has_key(self.name):
-            context[self.name] = self.start
+        name = parse_tag_argument(self.name, context)
+        start = parse_tag_argument(self.start, context)
+        print start
+        if not context.has_key(name):
+            context[name] = start
         else:
-            context[self.name] += 1
-        return str(context[self.name])
+            context[name] += 1
+        return str(context[name])
 
 def counter(parser, token):
-    # This version uses a regular expression to parse tag contents.
     # TODO: add "step" argument: the interval to count by
     # TODO: add "direction" argument: ascending or descending
-    import re
-    args = token.split_contents()
-    args.reverse()
     
-    tag_name = args.pop()
+    default_arguments = {}
+    default_arguments['name'] = 'default'
+    default_arguments['start'] = 0
+    arguments = decode_tag_arguments(token, default_arguments)
     
-    if not len(args):
-        name = ''
-    else:
-        name = args.pop()
-        if not (name[0] == name[-1] and name[0] in ('"', "'")):
-            raise template.TemplateSyntaxError, "%r tag's argument should be in quotes" % tag_name
-        name = name[1:-1]
-    if not name:
-        name = 'default'
-    
-    start = 0
-    if not len(args):
-        start = 0
-    else:
-        start = args.pop()
-        start = int(start)
-    
-    return CounterNode(name, start)
+    return CounterNode(arguments)
 
 register.tag('counter', counter)
