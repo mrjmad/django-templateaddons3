@@ -14,15 +14,25 @@ class ForRangeNode(template.Node):
         self.separator = ''
     
     def render(self, context):
-        # TODO: assign values to the context (like "for")
         output = []
         
         start = parse_tag_argument(self.start, context)
         stop = parse_tag_argument(self.stop, context)
         step = parse_tag_argument(self.step, context)
         
+        counter = 0
         for i in range(start, stop, step):
+            context['forrangeloop'] = {
+                'counter': counter + 1,
+                'counter0': counter,
+                'revcounter': stop - i,
+                'revcounter0': stop - 1 - i,
+                'first': (i == start),
+                'last': (i == stop - 1),
+                # TODO: add link to parent loop
+                }
             output.append(self.nodelist.render(context))
+            counter += 1
         output = self.separator.join(output)
         return output
 
