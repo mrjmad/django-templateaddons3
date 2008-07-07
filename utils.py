@@ -48,7 +48,7 @@ def decode_tag_arguments(token, default_arguments={}):
     You can provide default argument values with the parameter default_arguments.
     """
     arguments = {}
-    args = token.split_contents()
+    args = token.split_contents()   # TODO: fix bug that occurs when an argument value contains whitespaces. Example: my_arg=" "
     args.reverse()
     
     for (arg_name, arg_value) in default_arguments.iteritems():
