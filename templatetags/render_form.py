@@ -22,7 +22,9 @@ class RenderFormNode(template.Node):
         row_ender = parse_tag_argument(self.row_ender, context)
         help_text_html = parse_tag_argument(self.help_text_html, context)
         errors_on_separate_row = parse_tag_argument(self.errors_on_separate_row, context)
+        # cannot use the following function, because it raises exceptions => 'ascii' codec can't decode byte ... in position ...: ordinal not in range(128)
         #return form._html_output(normal_row, error_row, row_ender, help_text_html, errors_on_separate_row)
+        # so we reuse code from the function and encode strings
         top_errors = form.non_field_errors() # Errors that should be displayed above all fields.
         output, hidden_fields = [], []
         for name, field in form.fields.items():
@@ -40,12 +42,13 @@ class RenderFormNode(template.Node):
                 if field.help_text:
                     help_text = help_text_html % field.help_text
                 else:
-                    help_text = u''
+                    #help_text = u''
+                    help_text = ''
                 #output.append(normal_row % {'errors': bf_errors, 'label': label, 'field': unicode(bf), 'help_text': help_text})
                 bf_errors_output = '%s' % ''.join(['<span class="error">%s</span>' % e for e in bf_errors])
                 output.append(normal_row % {'errors': bf_errors_output, 'label': label.encode('utf8'), 'field': unicode(bf).encode('utf8'), 'help_text': help_text.encode('utf8')})
         if top_errors:
-            output.insert(0, error_row % top_errors)
+            output.insert(0, error_row % tuple(['<span class="error">%s</span>' % top_error.encode('utf8') for top_error in top_errors]))
         if hidden_fields: # Insert any hidden fields in the last row.
             str_hidden = u''.join(hidden_fields)
             if output:
