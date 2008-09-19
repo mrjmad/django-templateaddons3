@@ -3,6 +3,7 @@
 import re
 from django import template
 
+
 def parse_tag_argument(argument, context):
     """Parses a template tag argument within given context.
     
@@ -16,7 +17,7 @@ def parse_tag_argument(argument, context):
     - 1.70 is converted to a float
     - object.get_person is interpreted as a variable and parsed within the context
     """
-    if isinstance(argument, str) and argument:
+    if isinstance(argument, (str, unicode)) and argument:
         if argument[0] == argument[-1] and argument[0] in ('"', "'"):
             argument = argument[1:-1]
         else:
@@ -27,8 +28,9 @@ def parse_tag_argument(argument, context):
                 else:
                     argument = int(argument)
             else:
-                argument = template.resolve_variable(argument, context)
+                argument = template.Variable(argument).resolve(context)
     return argument
+
 
 def decode_tag_argument(argument):
     """Extracts argument name and value from the given string"""
@@ -37,6 +39,7 @@ def decode_tag_argument(argument):
         raise template.TemplateSyntaxError, "invalid tag argument syntax '%s'" % argument
     else:
         return {'name': match.group('name'), 'value':match.group('value')} 
+
 
 def decode_tag_arguments(token, default_arguments={}):
     """Returns a dictionnary of arguments that can be found in the given token.
