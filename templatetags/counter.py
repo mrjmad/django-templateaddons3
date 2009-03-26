@@ -13,7 +13,6 @@ class CounterNode(template.Node):
     def render(self, context):
         name = parse_tag_argument(self.name, context)
         start = parse_tag_argument(self.start, context)
-        print start
         if not context.has_key(name):
             context[name] = start
         else:
