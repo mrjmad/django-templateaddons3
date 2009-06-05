@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # coding= utf-8
 import re
+
 from django import template
+from django.utils.encoding import force_unicode
 
 
 def parse_tag_argument(argument, context):
@@ -32,6 +34,31 @@ def parse_tag_argument(argument, context):
     return argument
 
 
+split_re = re.compile('(?P<left>[\w-]+=)?(?P<right>"(?:[^"\\\\]*(?:\\\\.[^"\\\\]*)*)"|\'(?:[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*)\'|[^\\s]+)')
+def split_arguments(str):
+    """
+    Inspired by django.template.Token.split_contents(), except that arguments
+    can be named.
+    """ 
+    str = force_unicode(str)
+    str = str.split(u' ', 1)
+    if not len(str) > 1:
+        return []
+    str = str[1]
+    arguments = []
+    for match in split_re.finditer(str):
+        left = match.group('left') or u''
+        right = match.group('right') or u''
+        if right[0] == '"' and right[-1] == '"':
+            right = '"' + right[1:-1].replace('\\"', '"').replace('\\\\', '\\') + '"'
+        elif right[0] == "'" and right[-1] == "'":
+            right = "'" + right[1:-1].replace("\\'", "'").replace("\\\\", "\\") + "'"
+        else:
+            pass
+        arguments.append(left + right)
+    return arguments
+
+
 def decode_tag_argument(argument):
     """Extracts argument name and value from the given string"""
     match = re.match(r'((?P<name>[\w-]+)=)?(?P<value>.+)', argument)
@@ -51,8 +78,7 @@ def decode_tag_arguments(token, default_arguments={}):
     You can provide default argument values with the parameter default_arguments.
     """
     arguments = {}
-    args = token.split_contents()   # TODO: fix bug that occurs when an argument value contains whitespaces. Example: my_arg=" "
-    args.reverse()
+    args = split_arguments(token.contents)
     
     for (arg_name, arg_value) in default_arguments.iteritems():
         arguments[arg_name] = arg_value
