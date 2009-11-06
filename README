@@ -1,0 +1,40 @@
+####################
+Django-TemplateUtils
+####################
+
+:Author: Benoit Bryon <benoit@marmelune.net>
+:Date: 2008-07-07
+:Copyright: This document being part of the django-templateutils package.
+
+************
+Introduction
+************
+
+Django-TemplateUtils is a set of tools for use with Django's templates, 
+template tags and context processors.
+
+************
+Installation
+************
+
+Requirements
+============
+
+This application requires:
+
+* Django. The application targets the most recent release of branch 1.x.
+
+Please install and configure these applications *before* this one.
+
+Get the code
+============
+
+The code is not published yet. Ask the author.
+Copy the templateutils folder somewhere in your PYTHON_PATH. It may be in your
+project's directory.
+
+Settings
+========
+
+* add 'templateutils' to your INSTALLED_APPS
+
