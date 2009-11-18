@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding= utf-8
 from django import template
-from templateutils.utils import decode_tag_arguments, parse_tag_argument
+from templateaddons.utils import decode_tag_arguments, parse_tag_argument
 
 from django.newforms.forms import BoundField
 from django.newforms.util import ErrorList

@@ -1,17 +1,19 @@
-####################
-Django-TemplateUtils
-####################
+#####################
+Django-TemplateAddOns
+#####################
 
-:Author: Benoit Bryon <benoit@marmelune.net>
+:Authors: See AUTHORS
 :Date: 2008-07-07
-:Copyright: This document being part of the django-templateutils package.
+:Copyright: This document being part of the django-templateaddons package. Read
+            LICENCE for details.
 
 ************
 Introduction
 ************
 
-Django-TemplateUtils is a set of tools for use with Django's templates, 
-template tags and context processors.
+Django-TemplateAddOns is a set of tools for use with Django's templates, 
+template tags and context processors. It provides additional template tags,
+context processors and utilities for template tag development.
 
 ************
 Installation
@@ -29,12 +31,15 @@ Please install and configure these applications *before* this one.
 Get the code
 ============
 
-The code is not published yet. Ask the author.
-Copy the templateutils folder somewhere in your PYTHON_PATH. It may be in your
+The code is published under the BSD license. See LICENCE for details.
+
+The project page is http://bitbucket.org/benoitbryon/django-templateaddons/.
+
+Copy the templateaddons folder somewhere in your PYTHON_PATH. It may be in your
 project's directory.
 
 Settings
 ========
 
-* add 'templateutils' to your INSTALLED_APPS
+* add 'templateaddons' to your INSTALLED_APPS
 
