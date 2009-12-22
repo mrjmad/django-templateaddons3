@@ -5,7 +5,7 @@ Django-TemplateAddOns
 :Authors: See AUTHORS
 :Date: 2008-07-07
 :Copyright: This document being part of the django-templateaddons package. Read
-            LICENCE for details.
+            LICENSE for details.
 
 ************
 Introduction
@@ -31,7 +31,7 @@ Please install and configure these applications *before* this one.
 Get the code
 ============
 
-The code is published under the BSD license. See LICENCE for details.
+The code is published under the BSD license. See LICENSE for details.
 
 The project page is http://bitbucket.org/benoitbryon/django-templateaddons/.
 
