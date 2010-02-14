@@ -78,15 +78,35 @@ Here is modified home.html::
   <h1>My beautiful website</h1>
   {% headingcontext %}
   {% include "news.html" %}
-  {% endheadingcontext %}   
+  {% endheadingcontext %}
 
-Use this template tag in almost all your templates, or you may get some 
-inconsistency with levels.
+Now, if the news.html code was using h5 in place of h1 like that::
 
-In fact, if you use this template tag, you should:
+  <h5>News</h5>
+  <p>... links to news ...</p>
 
-* use it after every heading
-* write every heading as if it was a h1
+You can use the additional "source_level" parameter in home.html::
+
+  {% load heading %}
+  <h1>My beautiful website</h1>
+  {% headingcontext source_level=5 %}
+  {% include "news.html" %}
+  {% endheadingcontext %}
+
+This causes all heading of level 5 and greater in news.html to be brought back
+to the current heading level (2).
+
+You can use nested {% headingcontext %}{% endheadingcontext %} calls. As an
+example, news.html could be::
+
+  <h5>News</h5>
+  <p>... links to news ...</p>
+  {% load heading %}
+  {% headingcontext source_level=3 target_level=6 %}
+  {% include "another_template_fragment_which_contains_some_h3.html" %}
+  {% endheadingcontext %}
+
+Notice the use of the additional "target_level" parameter.
 
 Settings
 ========
