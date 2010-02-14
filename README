@@ -38,6 +38,56 @@ The project page is http://bitbucket.org/benoitbryon/django-templateaddons/.
 Copy the templateaddons folder somewhere in your PYTHON_PATH. It may be in your
 project's directory.
 
+******************************
+Builtin template tag libraries
+******************************
+
+This application provides several template tags.
+
+Heading
+=======
+
+The "heading" template tag library provides 1 template tag:
+
+* headingcontext: helps you manage heading levels in HTML code
+
+headingcontext
+--------------
+
+With cascading templates, includes and bases, some parts of template code
+could be reused in different heading contexts.
+
+As an example, consider the following "home page" code in home.html::
+
+  <h1>My beautiful website</h1>
+  <h2>News</h2>
+  <p>... links to news ...</p>
+
+And consider the following "news page" code in news.html
+
+  <h1>News</h1>
+  <p>... links to news ...</p>
+
+You cannot reuse (include) news.html code into home.html, because the heading
+level does not match.
+
+The "headingcontext" allows you to solve this problem.
+Here is modified home.html::
+
+  {% load heading %}
+  <h1>My beautiful website</h1>
+  {% headingcontext %}
+  {% include "news.html" %}
+  {% endheadingcontext %}   
+
+Use this template tag in almost all your templates, or you may get some 
+inconsistency with levels.
+
+In fact, if you use this template tag, you should:
+
+* use it after every heading
+* write every heading as if it was a h1
+
 Settings
 ========
 
