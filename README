@@ -38,6 +38,11 @@ The project page is http://bitbucket.org/benoitbryon/django-templateaddons/.
 Copy the templateaddons folder somewhere in your PYTHON_PATH. It may be in your
 project's directory.
 
+Update settings
+===============
+
+* add 'templateaddons' to your INSTALLED_APPS
+
 ******************************
 Builtin template tag libraries
 ******************************
@@ -71,7 +76,7 @@ And consider the following "news page" code in news.html
 You cannot reuse (include) news.html code into home.html, because the heading
 level does not match.
 
-The "headingcontext" allows you to solve this problem.
+The "headingcontext" template tag allows you to solve this problem.
 Here is modified home.html::
 
   {% load heading %}
@@ -80,7 +85,7 @@ Here is modified home.html::
   {% include "news.html" %}
   {% endheadingcontext %}
 
-Now, if the news.html code was using h5 in place of h1 like that::
+Ok. Now, what if the news.html code was using h5 in place of h1 like that::
 
   <h5>News</h5>
   <p>... links to news ...</p>
@@ -93,7 +98,7 @@ You can use the additional "source_level" parameter in home.html::
   {% include "news.html" %}
   {% endheadingcontext %}
 
-This causes all heading of level 5 and greater in news.html to be brought back
+This causes all heading of level 5 and greater in news.html to be relative
 to the current heading level (2).
 
 You can use nested {% headingcontext %}{% endheadingcontext %} calls. As an
@@ -106,10 +111,8 @@ example, news.html could be::
   {% include "another_template_fragment_which_contains_some_h3.html" %}
   {% endheadingcontext %}
 
-Notice the use of the additional "target_level" parameter.
+Notice the use of the additional "target_level" parameter, which forces 
+ouput levels to start at 6.
 
-Settings
-========
-
-* add 'templateaddons' to your INSTALLED_APPS
-
+You can read the provided test cases to observe what does this template tag at
+tests.HeadingContextTemplateTagTestCase.
