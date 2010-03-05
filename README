@@ -2,18 +2,14 @@
 Django-TemplateAddOns
 #####################
 
-:Authors: See AUTHORS
-:Date: 2008-07-07
-:Copyright: This document being part of the django-templateaddons package. Read
-            LICENSE for details.
-
 ************
 Introduction
 ************
 
-Django-TemplateAddOns is a set of tools for use with Django's templates, 
-template tags and context processors. It provides additional template tags,
-context processors and utilities for template tag development.
+Django-TemplateAddOns is a set of tools for use with Django's templates:
+* template tags;
+* context processors;
+* utilities for template tag development.
 
 ************
 Installation
@@ -43,11 +39,11 @@ Update settings
 
 * add 'templateaddons' to your INSTALLED_APPS
 
-******************************
-Builtin template tag libraries
-******************************
+**********************
+Template tag libraries
+**********************
 
-This application provides several template tags.
+This application provides several template tags packaged into libraries.
 
 Heading
 =======
@@ -116,3 +112,15 @@ ouput levels to start at 6.
 
 You can read the provided test cases to observe what does this template tag at
 tests.HeadingContextTemplateTagTestCase.
+
+******************
+Context processors
+******************
+
+Documentation needed.
+
+***************
+Developer tools
+***************
+
+Documentation needed.

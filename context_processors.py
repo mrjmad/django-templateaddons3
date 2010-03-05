@@ -1,21 +1,4 @@
-#!/usr/bin/env python
-# coding= utf-8
 import re
-
-
-def get_pathes_suggestions(path):
-    pathes = []
-    pathes.append('/')
-    # TODO: make it possible to recognize more intermediary pathes. Use breadcrumb ?
-    path = path.strip('/')
-    if path:
-        path_parts = path.split('/')
-        current_path = '/'
-        for path_part in path_parts:
-            current_path = '%s%s/' % (current_path, path_part)
-            pathes.append(current_path)
-    pathes.reverse()
-    return pathes
 
 
 def html_body_id(request):
