@@ -45,6 +45,36 @@ class AssignTemplateTagTestCase(TemplateTagTestCase):
         self.validate_template_code_result(fixtures)
 
 
+class CounterTemplateTagTestCase(TemplateTagTestCase):
+    """Tests the {% counter %} template tag"""
+    def test_output(self):
+        # set up fixtures
+        fixtures = [
+            (u'{% counter %}', u'0'), # default call
+            (u'{% counter %}{% counter %}', u'01'), # default call, 2 calls
+            (u'{% counter %}{% counter %}{% counter %}', u'012'), # default call, 3 calls
+            (u'{% counter %}{% counter name="c2" %}{% counter %}{% counter %}', u'0012'), # name parameter
+            (u'{% counter name="c2" %}{% counter %}{% counter name="c2" %}{% counter name="c2" %}', u'0012'), # name parameter
+            (u'{% counter name="c1" %}{% counter name="c2" %}{% counter name="c1" %}{% counter name="c1" %}{% counter name="c2" %}', u'00121'), # name parameter
+            (u'{% counter %}{% counter name="default" %}', u'01'), # default name is "default"
+            (u'{% counter start=1 %}{% counter %}', u'12'), # start parameter
+            (u'{% counter step=4 %}{% counter %}{% counter %}', u'048'), # step parameter
+            (u'{% counter step=-4 %}{% counter %}{% counter %}', u'0-4-8'), # negative step parameter
+            (u'{% counter ascending=1 %}{% counter %}{% counter %}', u'012'), # ascending parameter
+            (u'{% counter ascending=0 %}{% counter %}{% counter %}', u'0-1-2'), # ascending parameter
+            (u'{% counter ascending=0 step=-1 %}{% counter %}{% counter %}', u'012'), # ascending parameter and negative step
+            (u'{% counter silent=1 %}{% counter %}{% counter %}', u'12'), # silent parameter
+            (u'{% counter %}{% counter silent=1 %}{% counter %}', u'02'), # silent parameter
+            (u'{% counter silent=1 %}{% counter silent=1 %}{% counter %}', u'2'), # silent parameter
+            (u'{% counter assign="c1" %}{{ c1 }}{% counter %}{% counter assign="c1" %}{{ c1 }}{% counter %}{% counter assign="c2" %}{% counter %}{{ c1 }}{{ c2 }}', u'0012234524'), # assign parameter
+            (u'{% counter start=4 step=4 ascending=0 %}{% counter start=8 step=23 ascending=1 %}{% counter %}', u'40-4'), # only first declaration affects step and ascending parameters
+            ]
+        # add template tag library to template code
+        fixtures = [(u'{% load counter %}' + template_code, valid_output) for (template_code, valid_output) in fixtures]            
+        # test real output
+        self.validate_template_code_result(fixtures)
+
+
 class HeadingContextTemplateTagTestCase(TemplateTagTestCase):
     """Tests the {% headingcontext %} template tag"""
     def test_output(self):
