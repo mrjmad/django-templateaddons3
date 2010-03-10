@@ -1,8 +1,4 @@
-#!/usr/bin/env python
-# coding= utf-8
 from django import template
-from templateaddons.utils import decode_tag_arguments, parse_tag_argument
-from django.utils.encoding import force_unicode
 
 
 register = template.Library()
@@ -10,7 +6,8 @@ register = template.Library()
 
 class JavascriptContainer(object):
     """
-    Content storage.
+    Content storage. Stores fragments of code in a list (self.nodes).
+    Provides a method to render code fragments as an unicode. 
     """
     def __init__(self):
         self.nodes = []
@@ -18,18 +15,30 @@ class JavascriptContainer(object):
         self.unique = True
     
     def __unicode__(self):
+        """
+        Joins self.nodes with self.separator.
+        If self.unique is True, then duplicate code fragments are ignored.
+        """
         if self.unique:
             self.remove_duplicates()
         return u'%s' % self.separator.join(self.nodes)
     
     def remove_duplicates(self):
+        """
+        Removes duplicate code fragments from self.nodes. Updates self.nodes
+        and returns None.
+        """
         seen = set()
         self.nodes = [x for x in self.nodes if x not in seen and not seen.add(x)]
     
     def append(self, content):
+        """
+        Appends a code fragment to the internal node list.
+        """
         self.nodes.append(content)
 
 
+# global registry which is used across templates
 javascript_container = JavascriptContainer()
 
 
@@ -40,6 +49,9 @@ class JavascriptRenderNode(template.Node):
 
 @register.tag
 def javascript_render(parser, token):
+    """
+    Renders the Javascript code.
+    """
     return JavascriptRenderNode()
 
 
@@ -55,8 +67,10 @@ class JavascriptAssignNode(template.Node):
 
 @register.tag
 def javascript_assign(parser, token):
-    default_arguments = {}
-    arguments = decode_tag_arguments(token, default_arguments)
+    """
+    Adds some Javascript code to the registry. Requires a
+    {% endjavascript_assign %} closing tag. 
+    """
     nodelist = parser.parse(('endjavascript_assign',))
     parser.delete_first_token()
     return JavascriptAssignNode(nodelist)
@@ -64,6 +78,9 @@ def javascript_assign(parser, token):
 
 @register.simple_tag
 def javascript_reset():
+    """
+    Empties the Javascript registry.
+    """
     global javascript_container
     javascript_container = JavascriptContainer()
     return u''

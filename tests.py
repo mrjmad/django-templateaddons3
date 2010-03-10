@@ -94,3 +94,35 @@ class HeadingContextTemplateTagTestCase(TemplateTagTestCase):
         fixtures = [(u'{% load heading %}' + template_code, valid_output) for (template_code, valid_output) in fixtures]            
         # test real output
         self.validate_template_code_result(fixtures)
+
+
+class JavascriptTemplateTagTestCase(TemplateTagTestCase):
+    """Tests the {% counter %} template tag"""
+    def test_output(self):
+        # set up fixtures
+        fixtures = [
+            (u'{% javascript_render %}', u''), # empty registry
+            (u'{% javascript_assign %}1{% endjavascript_assign %}', u''), # no rendering
+            (u'{% javascript_render %}', u'1'), # later rendering works! (not a bug, this is a feature)
+            (u'{% javascript_assign %}2{% endjavascript_assign %}', u''), # additional assignment without rendering
+            (u'{% javascript_render %}', u'1\n2'), # later rendering still works!
+            (u'{% javascript_reset %}{% javascript_render %}', u''), # reset
+            (u'{% javascript_reset %}', u''), # clear registry
+            (u'{% javascript_render %} - {% javascript_assign %}1{% endjavascript_assign %}', u' - '), # render before assign, does not work
+            (u'{% javascript_reset %}', u''), # clear registry
+            (u'{% javascript_assign %}1{% endjavascript_assign %} - {% javascript_render %}', u' - 1'), # simple use case
+            (u'{% javascript_reset %}', u''), # clear registry
+            (u'{% javascript_assign %}1{% endjavascript_assign %}{% javascript_assign %}2{% endjavascript_assign %} - {% javascript_render %}', u' - 1\n2'), # 2 assignments
+            (u'{% javascript_reset %}', u''), # clear registry
+            (u'{% javascript_assign %}1{% endjavascript_assign %}{% javascript_assign %}1{% endjavascript_assign %}{% javascript_assign %}2{% endjavascript_assign %} - {% javascript_render %}', u' - 1\n2'), # strict duplicates are ignored
+            (u'{% javascript_reset %}', u''), # clear registry
+            (u'{% javascript_assign %}1{% endjavascript_assign %}{% javascript_assign %}2{% endjavascript_assign %}{% javascript_assign %}1{% endjavascript_assign %} - {% javascript_render %}', u' - 1\n2'), # strict duplicates are ignored, whatever the order
+            (u'{% javascript_reset %}', u''), # clear registry
+            (u'{% javascript_assign %}1{% endjavascript_assign %}{% javascript_assign %} 1{% endjavascript_assign %}{% javascript_assign %}2{% endjavascript_assign %} - {% javascript_render %}', u' - 1\n 1\n2'), # non strict duplicates are not ignored
+            (u'{% javascript_reset %}', u''), # clear registry
+            ]
+        # add template tag library to template code
+        fixtures = [(u'{% load javascript %}' + template_code, valid_output) for (template_code, valid_output) in fixtures]            
+        # test real output
+        self.validate_template_code_result(fixtures)
+

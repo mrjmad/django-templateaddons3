@@ -210,6 +210,26 @@ ouput levels to start at 6.
 You can read the provided test cases to observe what does this template tag at
 tests.HeadingContextTemplateTagTestCase.
 
+Javascript
+==========
+
+The "javascript" template tag library provides 3 template tags:
+
+* javascript_assign: registers some Javascript code 
+* javascript_render: displays all registered Javascript code
+* javascript_reset: empties the Javascript registry
+
+This template tag library has been written to help template designers implement
+the following pattern:
+
+* in templates, write Javascript fragments along with the corresponding HTML
+  code. This is done with the {% javascript_assign %} template tag.
+* display the Javascript code at the end of the HTML document. This is done
+  by calling the {% javascript_render %} template tag at the end of the HTML
+  document.
+* remove duplicate code fragments, e.g. do not call the same library twice.
+  This is done by the {% javascript_render %} template tag.
+
 ******************
 Context processors
 ******************
