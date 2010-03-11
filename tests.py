@@ -1,5 +1,6 @@
 from django.template import Template, Context
 from django.test import TestCase
+from django.utils.html import strip_spaces_between_tags
 
 
 class TemplateTagTestCase(TestCase):
@@ -120,6 +121,37 @@ class JavascriptTemplateTagTestCase(TemplateTagTestCase):
             (u'{% javascript_reset %}', u''), # clear registry
             (u'{% javascript_assign %}1{% endjavascript_assign %}{% javascript_assign %} 1{% endjavascript_assign %}{% javascript_assign %}2{% endjavascript_assign %} - {% javascript_render %}', u' - 1\n 1\n2'), # non strict duplicates are not ignored
             (u'{% javascript_reset %}', u''), # clear registry
+            (u'{% spaceless %}{% include "templateaddons/tests/javascript/home.html" %}{% endspaceless %}', strip_spaces_between_tags(u"""<html>    
+<head>
+</head>
+<body>
+  <div id="menu">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <!-- the menu... -->
+    </ul>
+  </div>
+  <div id="content">
+    <p>This is the content</p>
+  </div>
+  <!--  JAVASCRIPT CODE -->
+<script type="text/javascript" src="/first_lib.js" />
+<script type="text/javascript">
+    /* some javascript code that uses "first_lib.js" */
+    var a = 1;
+    /* Notice that the "left aligned" indentation helps avoiding whitespace differences between two code fragments. */
+</script>
+<script type="text/javascript" src="/second_lib.js" />
+<script type="text/javascript">
+    /* some javascript code that uses "second_lib.js" */
+    var b = 2;
+</script>
+<script type="text/javascript">
+    /* some javascript code that uses both "first_lib.js" and "second_lib.js" */
+    var c = 3;
+</script>
+</body>
+</html>""")),
             ]
         # add template tag library to template code
         fixtures = [(u'{% load javascript %}' + template_code, valid_output) for (template_code, valid_output) in fixtures]            
