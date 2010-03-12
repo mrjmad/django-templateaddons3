@@ -167,14 +167,22 @@ class ReplaceTemplateTagTestCase(TemplateTagTestCase):
             (u'{% replace %}{% endreplace %}', u''), # does nothing
             (u'{% replace search="" replacement="" %}{% endreplace %}', u''), # does nothing
             (u'{% replace search="" replacement="" %}toto{% endreplace %}', u'toto'),
-            (u'{% replace search="" replacement="aa" %}toto{% endreplace %}', u'aataaoaataaoaa'), # current limitation
+            (u'{% replace search="" replacement="aa" %}toto{% endreplace %}', u'toto'),
             (u'{% replace search="t" replacement="m" %}toto{% endreplace %}', u'momo'),
             (u'{% replace search="t" replacement="" %}toto{% endreplace %}', u'oo'),
             (u'{% replace search="to" replacement="ma" %}toto{% endreplace %}', u'mama'),
             (u'{% replace search="toto" replacement="a" %}toto{% endreplace %}', u'a'),
             (u'{% replace search=" " replacement="-" %}t o t o{% endreplace %}', u't-o-t-o'),
-            (u'{% replace search="\\n" replacement="" %}t\noto{% endreplace %}', u't\noto'), # antislash character have no effect
-            (u'{% replace search="[a-z]+" replacement="" %}Toto{% endreplace %}', u'Toto'), # regular expressions do no work
+            (u'{% replace search="\\n" replacement="" %}t\noto{% endreplace %}', u'toto'), # antislash character works
+            (u'{% replace search="[a-z]+" replacement="" %}Toto{% endreplace %}', u'T'), # regular expressions
+            (u'{% replace search="^." replacement="A" %}toto{% endreplace %}', u'Aoto'), # regular expressions
+            (u'{% replace search="to$" replacement="Z" %}toto{% endreplace %}', u'toZ'), # regular expressions
+            (u'{% replace search="\s+" replacement="-" %}to\t \n\n   \tto{% endreplace %}', u'to-to'), # regular expressions
+            (u'{% replace search="(to)" replacement="\\1a" %}toto{% endreplace %}', u'toatoa'), # backreferences in regular expressions
+            (u'{% replace search="([a-z]+)" replacement="*\\1*" %}123abc456def{% endreplace %}', u'123*abc*456*def*'), # backreferences in regular expressions
+            (u'{% replace search="(to)" replacement="au" %}(to)to{% endreplace %}', u'(au)au'), # regexp not escaped
+            (u'{% replace search="(to)" replacement="au" use_regexp=0 %}(to)to{% endreplace %}', u'auto'), # escaped regexp
+            (u'{% filter escape_regexp %}(to){% endfilter %}', u'\(to\)'), # escaped regexp
             ]
         # add template tag library to template code
         fixtures = [(u'{% load replace %}' + template_code, valid_output) for (template_code, valid_output) in fixtures]            

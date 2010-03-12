@@ -366,10 +366,18 @@ code once, so you do not need to use this tag.
 Replace
 =======
 
-The "replace" template tag library provides 1 template tag:
+The "replace" template tag library provides 1 template tag and 1 template 
+filter.
+
+Template tag:
 
 * replace: replaces a string by another in the content of the block. Requires a 
-  {% endreplace %} closing tag. 
+  {% endreplace %} closing tag.
+
+Template filter:
+
+* escape_regexp: makes it possible to escape a regular expression special 
+  characters in a string. 
 
 replace
 -------
@@ -384,13 +392,33 @@ following template code...::
 
   tomato
 
-The following limitations currently exist:
+The "search" parameter is considered as a regular expression by default
+(options re.UNICODE and re.DOTALL are enabled).
 
-* no support for regular expressions
-* no support of an escape character. You cannot search for \n, \t and so on...
-* known strange behaviour of "empty search": the template code 
-  {% replace search="" replacement="aa" %}toto{% endreplace %}
-  gives "aataaoaataaoaa" as output. 
+If you do not want to use regular expression, use the enable_regexp=0 
+parameter. The following template code...::
+
+  {% load replace %}
+  {% replace search="(to)" replacement="au" %}(to)to{% endreplace %}
+  {% replace search="(to)" replacement="au" use_regexp=0 %}(to)to{% endreplace %}
+
+... gives the following output::
+
+  (au)au
+  auto
+
+You can also use backreferences in the replacement parameter. The following
+template code...::
+
+  {% load replace %}
+  {% replace search="([a-z]+)" replacement="*\1*" %}123abc456def{% endreplace %}
+
+... gives the following output::
+
+  123*abc*456*def*
+
+Notice, if you write the previous template code in Python code (i.e. as a 
+string), then backreference syntax is \\1 rather than \1.
 
 ******************
 Context processors
