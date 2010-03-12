@@ -362,6 +362,36 @@ Call it to empty the Javascript code fragments *previously* registered in
 {% javascript_assign %} blocks. In general use case, you display Javascript
 code once, so you do not need to use this tag.
 
+
+Replace
+=======
+
+The "replace" template tag library provides 1 template tag:
+
+* replace: replaces a string by another in the content of the block. Requires a 
+  {% endreplace %} closing tag. 
+
+replace
+-------
+
+This template tag provides a simple string replacement functionality. The
+following template code...::
+
+  {% load replace %}
+  {% replace search="pa" replacement="to" %}pamato{% endreplace %}
+
+... gives the following output::
+
+  tomato
+
+The following limitations currently exist:
+
+* no support for regular expressions
+* no support of an escape character. You cannot search for \n, \t and so on...
+* known strange behaviour of "empty search": the template code 
+  {% replace search="" replacement="aa" %}toto{% endreplace %}
+  gives "aataaoaataaoaa" as output. 
+
 ******************
 Context processors
 ******************

@@ -158,3 +158,25 @@ class JavascriptTemplateTagTestCase(TemplateTagTestCase):
         # test real output
         self.validate_template_code_result(fixtures)
 
+
+class ReplaceTemplateTagTestCase(TemplateTagTestCase):
+    """Tests the {% replace %} template tag"""
+    def test_output(self):
+        # set up fixtures
+        fixtures = [
+            (u'{% replace %}{% endreplace %}', u''), # does nothing
+            (u'{% replace search="" replacement="" %}{% endreplace %}', u''), # does nothing
+            (u'{% replace search="" replacement="" %}toto{% endreplace %}', u'toto'),
+            (u'{% replace search="" replacement="aa" %}toto{% endreplace %}', u'aataaoaataaoaa'), # current limitation
+            (u'{% replace search="t" replacement="m" %}toto{% endreplace %}', u'momo'),
+            (u'{% replace search="t" replacement="" %}toto{% endreplace %}', u'oo'),
+            (u'{% replace search="to" replacement="ma" %}toto{% endreplace %}', u'mama'),
+            (u'{% replace search="toto" replacement="a" %}toto{% endreplace %}', u'a'),
+            (u'{% replace search=" " replacement="-" %}t o t o{% endreplace %}', u't-o-t-o'),
+            (u'{% replace search="\\n" replacement="" %}t\noto{% endreplace %}', u't\noto'), # antislash character have no effect
+            (u'{% replace search="[a-z]+" replacement="" %}Toto{% endreplace %}', u'Toto'), # regular expressions do no work
+            ]
+        # add template tag library to template code
+        fixtures = [(u'{% load replace %}' + template_code, valid_output) for (template_code, valid_output) in fixtures]            
+        # test real output
+        self.validate_template_code_result(fixtures)

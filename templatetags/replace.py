@@ -1,6 +1,5 @@
-#!/usr/bin/env python
-# coding= utf-8
 from django import template
+
 from templateaddons.utils import decode_tag_arguments, parse_tag_argument
 
 
@@ -8,29 +7,30 @@ register = template.Library()
 
 
 class ReplaceNode(template.Node):
-    def __init__(self, nodelist, arguments):
-        self.nodelist = nodelist
-        self.from_str = arguments["from"]
-        self.to_str = arguments["to"]
+    def __init__(self, source, search=u'', replacement=u''):
+        self.nodelist = source
+        self.search = search
+        self.replacement = replacement
     
     def render(self, context):
-        from_str = parse_tag_argument(self.from_str, context)
-        to_str = parse_tag_argument(self.to_str, context)
+        search = parse_tag_argument(self.search, context)
+        replacement = parse_tag_argument(self.replacement, context)
         
-        output = self.nodelist.render(context)
-        output = output.replace(from_str, to_str)
+        source = self.nodelist.render(context)
+        output = source.replace(search, replacement)
+        
         return output
 
 
 def replace_tag(parser, token):
     default_arguments = {}
-    default_arguments['from'] = ''
-    default_arguments['to'] = ''
+    default_arguments['search'] = u''
+    default_arguments['replacement'] = u''
     arguments = decode_tag_arguments(token, default_arguments)
     
-    nodelist = parser.parse(('endreplace',))
+    source = parser.parse(('endreplace',))
     parser.delete_first_token()
-    return ReplaceNode(nodelist, arguments)
-
+    
+    return ReplaceNode(source, **arguments)
 
 register.tag('replace', replace_tag)
