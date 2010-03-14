@@ -1,0 +1,30 @@
+############
+Installation
+############
+
+************
+Requirements
+************
+
+This application requires:
+
+* Django. The application targets the most recent release of branch 1.x.
+
+Please install and configure these applications *before* this one.
+
+************
+Get the code
+************
+
+The code is published under the BSD license. See LICENSE for details.
+
+The project page is http://bitbucket.org/benoitbryon/django-templateaddons/.
+
+Copy the templateaddons folder somewhere in your PYTHON_PATH. It may be in your
+project's directory.
+
+***************
+Update settings
+***************
+
+* add 'templateaddons' to your INSTALLED_APPS

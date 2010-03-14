@@ -6,15 +6,18 @@
 Welcome to Django-TemplateAddOns's documentation!
 =================================================
 
+Django-TemplateAddOns is a set of tools for use with Django's templates:
+
+* template tags;
+* utilities for template tag development;
+* context processors.
+
 Contents:
 
 .. toctree::
    :maxdepth: 2
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
+   
+   install
+   template_tags/index
+   developer_tools/index
+   context_processors/index
