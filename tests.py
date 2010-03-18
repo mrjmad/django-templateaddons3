@@ -121,7 +121,7 @@ class JavascriptTemplateTagTestCase(TemplateTagTestCase):
             (u'{% javascript_reset %}', u''), # clear registry
             (u'{% javascript_assign %}1{% endjavascript_assign %}{% javascript_assign %} 1{% endjavascript_assign %}{% javascript_assign %}2{% endjavascript_assign %} - {% javascript_render %}', u' - 1\n 1\n2'), # non strict duplicates are not ignored
             (u'{% javascript_reset %}', u''), # clear registry
-            (u'{% spaceless %}{% include "templateaddons/tests/javascript/home.html" %}{% endspaceless %}', strip_spaces_between_tags(u"""<html>    
+            (u'{% spaceless %}{% include "tests/templateaddons/javascript/home.html" %}{% endspaceless %}', strip_spaces_between_tags(u"""<html>    
 <head>
 </head>
 <body>
