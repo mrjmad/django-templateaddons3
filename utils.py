@@ -63,7 +63,7 @@ def decode_tag_argument(argument):
     if match is None:
         raise template.TemplateSyntaxError, "invalid tag argument syntax '%s'" % argument
     else:
-        return {'name': match.group('name'), 'value':match.group('value')} 
+        return {'name': str(match.group('name')), 'value':match.group('value')} 
 
 
 def decode_tag_arguments(token, default_arguments={}):
