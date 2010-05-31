@@ -18,6 +18,16 @@ Get the code
 
 The code is published under the BSD license. See LICENSE for details.
 
+Using pip
+=========
+
+Run the following command::
+
+  # pip install -U Django-TemplateAddOns
+
+Manual install
+==============
+
 The project page is http://bitbucket.org/benoitbryon/django-templateaddons/.
 
 Copy the templateaddons folder somewhere in your PYTHON_PATH. It may be in your

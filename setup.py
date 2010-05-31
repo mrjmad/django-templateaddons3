@@ -1,3 +1,7 @@
+import distribute_setup
+distribute_setup.use_setuptools()
+
+
 from setuptools import setup, find_packages
 
 
@@ -8,7 +12,7 @@ setup(
     author='Benoit Bryon',
     author_email='benoit@marmelune.net',
     packages=find_packages(),
-    license='BSD',
+    license='LICENSE',
     description = "A set of tools for use with templates of the Django " \
                   "framework: additional template tags, context processors " \
                   "and utilities for template tag development.",

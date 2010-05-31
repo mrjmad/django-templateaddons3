@@ -5,7 +5,7 @@ Summary: A set of tools for use with templates of the Django framework: addition
 Home-page: http://bitbucket.org/benoitbryon/django-templateaddons/
 Author: Benoit Bryon
 Author-email: benoit@marmelune.net
-License: BSD
+License: LICENSE
 Description: #####################
         Django-TemplateAddOns
         #####################

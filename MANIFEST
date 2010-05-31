@@ -1,8 +1,0 @@
-README
-setup.py
-templateaddons/__init__.py
-templateaddons/context_processors.py
-templateaddons/models.py
-templateaddons/settings.py
-templateaddons/tests.py
-templateaddons/utils.py

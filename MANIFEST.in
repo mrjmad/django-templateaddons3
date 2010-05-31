@@ -1,0 +1,7 @@
+include AUTHORS
+include CHANGES
+include LICENSE
+include README
+include setup.py
+recursive-include docs *
+recursive-include templateaddons *
