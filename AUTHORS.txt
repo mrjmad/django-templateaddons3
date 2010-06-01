@@ -3,4 +3,3 @@ Authors
 #######
 
 * Benoît Bryon <benoit@marmelune.net>
-

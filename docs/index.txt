@@ -1,18 +1,23 @@
-.. Django-TemplateAddOns documentation master file, created by
-   sphinx-quickstart on Sun Mar 14 18:17:47 2010.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+######################################
+django-templateaddons's documentation!
+######################################
 
-Welcome to Django-TemplateAddOns's documentation!
-=================================================
+django-templateaddons is a set of tools for use with Django's templates, 
+template tags and context processors. It provides additional template tags, 
+context processors and utilities for template tag development.
 
-Django-TemplateAddOns is a set of tools for use with Django's templates:
+*****
+Links
+*****
 
-* template tags;
-* utilities for template tag development;
-* context processors.
+* Follow the project on BitBucket at
+  http://bitbucket.org/benoitbryon/django-templateaddons
+* Read this documentation in HTML format at
+  http://packages.python.org/django-templateaddons/
 
-Contents:
+********
+Contents
+********
 
 .. toctree::
    :maxdepth: 2
@@ -21,3 +26,11 @@ Contents:
    template_tags/index
    developer_tools/index
    context_processors/index
+
+*******************
+Credits and license
+*******************
+
+This application is published under the BSD license. See LICENSE and 
+AUTHORS for details.
+   

@@ -2,33 +2,46 @@
 Installation
 ############
 
+The code is published under the BSD license. See LICENSE for details.
+
 ************
 Requirements
 ************
 
 This application requires:
 
-* Django. The application targets the most recent release of branch 1.x.
+* `Django-1.2.1`_. The application targets the latest stable release of 
+  branch 1.x. It may work with previous versions, but tests focus on the latest
+  one.
 
-Please install and configure these applications *before* this one.
+.. _`Django-1.2.1`: http://djangoproject.com/
 
 ************
 Get the code
 ************
 
-The code is published under the BSD license. See LICENSE for details.
+The code is published under the BSD license. See LICENSE.txt for details.
 
-Using pip
-=========
+Automatic installation
+======================
 
-Run the following command::
+This application is known as "django-templateaddons" on 
+`Pypi <http://pypi.python.org/>`_. 
 
-  # pip install -U Django-TemplateAddOns
+So you can install it with pip or easy_install. As an example::
 
-Manual install
-==============
+  # pip install -U django-templateaddons
 
-The project page is http://bitbucket.org/benoitbryon/django-templateaddons/.
+Manual installation
+===================
+
+The main project page is http://bitbucket.org/benoitbryon/django-templateaddons.
+
+You can clone the repository with the following command line:
+
+.. code-block:: bash
+
+  $ hg clone http://bitbucket.org/benoitbryon/django-templateaddons
 
 Copy the templateaddons folder somewhere in your PYTHON_PATH. It may be in your
 project's directory.
