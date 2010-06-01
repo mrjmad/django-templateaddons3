@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-templateaddons',
-    version='0.1dev',
+    version='0.1',
     url='http://bitbucket.org/benoitbryon/django-templateaddons/',
     author='Benoit Bryon',
     author_email='benoit@marmelune.net',
