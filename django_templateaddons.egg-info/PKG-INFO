@@ -19,7 +19,7 @@ Description: #####################
         *************
         
         * Read the HTML documentation online at
-        http://code.marmelune.net/django-templateaddons/docs/_build/html/
+        http://packages.python.org/django-templateaddons/
         * Read the RestructuredText documentation in the docs/ folder in the source
         code.
         
