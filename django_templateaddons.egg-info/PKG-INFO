@@ -6,6 +6,7 @@ Home-page: http://bitbucket.org/benoitbryon/django-templateaddons/
 Author: Benoit Bryon
 Author-email: benoit@marmelune.net
 License: LICENSE
+Download-URL: http://bitbucket.org/benoitbryon/django-templateaddons/get/64c8a482a7dd.zip
 Description: #####################
         django-templateaddons
         #####################
@@ -36,7 +37,7 @@ Description: #####################
         This application is published under the BSD license. See LICENSE.txt and
         AUTHORS.txt for details.
         
-Platform: UNKNOWN
+Platform: Any
 Classifier: Development Status :: 3 - Alpha
 Classifier: License :: OSI Approved :: BSD License
 Classifier: Operating System :: OS Independent

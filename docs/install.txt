@@ -25,12 +25,23 @@ The code is published under the BSD license. See LICENSE.txt for details.
 Automatic installation
 ======================
 
+Latest release
+--------------
+
 This application is known as "django-templateaddons" on 
 `Pypi <http://pypi.python.org/>`_. 
 
 So you can install it with pip or easy_install. As an example::
 
   # pip install -U django-templateaddons
+
+Development files
+-----------------
+
+You can use pip to automatically download and install the project with 
+versionning::
+
+  # pip install -U -e hg+http://bitbucket.org/benoitbryon/django-templateaddons#egg=django-templateaddons
 
 Manual installation
 ===================

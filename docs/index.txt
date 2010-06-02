@@ -10,10 +10,22 @@ context processors and utilities for template tag development.
 Links
 *****
 
-* Follow the project on BitBucket at
-  http://bitbucket.org/benoitbryon/django-templateaddons
-* Read this documentation in HTML format at
-  http://packages.python.org/django-templateaddons/
+HTML documentation
+  `Browse the HTML documentation online
+  <http://packages.python.org/django-templateaddons/>`_.
+
+RestructuredText documentation
+  `Read the RestructuredText documentation in the docs/ folder in the source
+  code <http://bitbucket.org/benoitbryon/django-templateaddons/src/tip/docs/>`_.
+
+Source code repository
+  `Follow the project on BitBucket
+  <http://bitbucket.org/benoitbryon/django-templateaddons>`_.
+
+Pypi
+  The project is known as 
+  `django-templateaddons <http://pypi.python.org/pypi/django-templateaddons>`_
+  in the Python package index.
 
 ********
 Contents
@@ -26,11 +38,13 @@ Contents
    template_tags/index
    developer_tools/index
    context_processors/index
+   LICENSE
+   AUTHORS
+   CHANGES
 
 *******************
 Credits and license
 *******************
 
-This application is published under the BSD license. See LICENSE and 
-AUTHORS for details.
-   
+This application is published under the BSD license. See :doc:`LICENSE` and 
+:doc:`AUTHORS` for details.
