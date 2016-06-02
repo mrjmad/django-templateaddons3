@@ -1,7 +1,8 @@
 import re
 
 from django import template
-from django.utils.encoding import force_unicode
+from django.utils.encoding import force_text
+from six import iteritems
 
 
 def parse_tag_argument(argument, context):
@@ -17,7 +18,7 @@ def parse_tag_argument(argument, context):
     - 1.70 is converted to a float
     - object.get_person is interpreted as a variable and parsed within the context
     """
-    if isinstance(argument, (str, unicode)) and argument:
+    if isinstance(argument, str) and argument:
         if argument[0] == argument[-1] and argument[0] in ('"', "'"):
             argument = argument[1:-1]
         else:
@@ -38,7 +39,7 @@ def split_arguments(str):
     Inspired by django.template.Token.split_contents(), except that arguments
     can be named.
     """ 
-    str = force_unicode(str)
+    str = force_text(str)
     str = str.split(u' ', 1)
     if not len(str) > 1:
         return []
@@ -61,7 +62,7 @@ def decode_tag_argument(argument):
     """Extracts argument name and value from the given string"""
     match = re.match(r'((?P<name>[\w-]+)=)?(?P<value>.+)', argument)
     if match is None:
-        raise template.TemplateSyntaxError, "invalid tag argument syntax '%s'" % argument
+        raise template.TemplateSyntaxError("invalid tag argument syntax '%s'" % argument)
     else:
         return {'name': str(match.group('name')), 'value':match.group('value')} 
 
@@ -78,7 +79,7 @@ def decode_tag_arguments(token, default_arguments={}):
     arguments = {}
     args = split_arguments(token.contents)
     
-    for (arg_name, arg_value) in default_arguments.iteritems():
+    for (arg_name, arg_value) in iteritems(default_arguments):
         arguments[arg_name] = arg_value
     
     for arg in args:
