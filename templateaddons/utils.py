@@ -18,7 +18,7 @@ def parse_tag_argument(argument, context):
     - 1.70 is converted to a float
     - object.get_person is interpreted as a variable and parsed within the context
     """
-    if isinstance(argument, (str, text_type)) and argument:
+    if isinstance(argument, text_type) and argument:
         if argument[0] == argument[-1] and argument[0] in ('"', "'"):
             argument = argument[1:-1]
         else:
