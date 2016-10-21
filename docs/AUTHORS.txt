@@ -3,3 +3,5 @@ Authors
 #######
 
 * Benoît Bryon <benoit@marmelune.net>
+* Julie E <https://github.com/julpn>
+* Remigiusz Dymecki <https://github.com/remik>

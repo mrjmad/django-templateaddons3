@@ -10,11 +10,10 @@ Requirements
 
 This application requires:
 
-* `Django-1.2.1`_. The application targets the latest stable release of 
-  branch 1.x. It may work with previous versions, but tests focus on the latest
-  one.
+* `Django`_. The application targets the latest stable and LTS release.
+   It may work with previous versions, but tests focus on the latest one.
 
-.. _`Django-1.2.1`: http://djangoproject.com/
+.. _`Django`: http://djangoproject.com/
 
 ************
 Get the code
@@ -28,31 +27,31 @@ Automatic installation
 Latest release
 --------------
 
-This application is known as "django-templateaddons" on 
-`Pypi <http://pypi.python.org/>`_. 
+This application is known as "django-templateaddons3" on
+`Pypi <http://pypi.python.org/>`_.
 
 So you can install it with pip or easy_install. As an example::
 
-  # pip install -U django-templateaddons
+  # pip install -U django-templateaddons3
 
 Development files
 -----------------
 
-You can use pip to automatically download and install the project with 
+You can use pip to automatically download and install the project with
 versionning::
 
-  # pip install -U -e hg+http://bitbucket.org/benoitbryon/django-templateaddons#egg=django-templateaddons
+  # pip install -U -e git+ssh://git@github.com/django-templateaddons/django-templateaddons3.git#egg=django-templateaddons
 
 Manual installation
 ===================
 
-The main project page is http://bitbucket.org/benoitbryon/django-templateaddons.
+The main project page is https://github.com/django-templateaddons/django-templateaddons3.
 
 You can clone the repository with the following command line:
 
 .. code-block:: bash
 
-  $ hg clone http://bitbucket.org/benoitbryon/django-templateaddons
+  $ git clone git@github.com:django-templateaddons/django-templateaddons3.git
 
 Copy the templateaddons folder somewhere in your PYTHON_PATH. It may be in your
 project's directory.

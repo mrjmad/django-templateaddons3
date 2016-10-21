@@ -12,7 +12,7 @@ class HeadingContextNode(template.Node):
         self.nodelist = nodelist
         self.source_level = source_level
         self.target_level = target_level
-    
+
     def render(self, context):
         source_level = parse_tag_argument(self.source_level, context)
         target_level = parse_tag_argument(self.target_level, context)
@@ -43,7 +43,7 @@ def headingcontext(parser, token):
     default_arguments['source_level'] = 1
     default_arguments['target_level'] = 2
     arguments = decode_tag_arguments(token, default_arguments)
-    
+
     nodelist = parser.parse(('endheadingcontext',))
     parser.delete_first_token()
     return HeadingContextNode(nodelist, **arguments)

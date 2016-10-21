@@ -7,10 +7,10 @@ from six import iteritems, text_type
 
 def parse_tag_argument(argument, context):
     """Parses a template tag argument within given context.
-    
+
     Consider the tag:
     {% my_tag name='Toto' surname="Tata" age=32 size=1.70 person=object.get_person %}
-    
+
     The values used above are interpreted as:
     - 'Toto' and "Tata" are converted to their string value (without quotes),
     respectively 'Toto' and 'Tata'
@@ -33,12 +33,14 @@ def parse_tag_argument(argument, context):
     return argument
 
 
-split_re = re.compile('(?P<left>[\w-]+=)?(?P<right>"(?:[^"\\\\]*(?:\\\\.[^"\\\\]*)*)"|\'(?:[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*)\'|[^\\s]+)')
+split_re = re.compile('(?P<left>[\w-]+=)?(?P<right>"(?:[^"\\\\]*(?:\\\\.[^"\\\\]*)*)"|\'(?:[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*)\'|[^\\s]+)')  # NOQA
+
+
 def split_arguments(str):
     """
     Inspired by django.template.Token.split_contents(), except that arguments
     can be named.
-    """ 
+    """
     str = force_text(str)
     str = str.split(u' ', 1)
     if not len(str) > 1:
@@ -64,26 +66,26 @@ def decode_tag_argument(argument):
     if match is None:
         raise template.TemplateSyntaxError("invalid tag argument syntax '%s'" % argument)
     else:
-        return {'name': str(match.group('name')), 'value':match.group('value')} 
+        return {'name': str(match.group('name')), 'value': match.group('value')}
 
 
 def decode_tag_arguments(token, default_arguments={}):
     """Returns a dictionnary of arguments that can be found in the given token.
-    
+
     This can be useful to code template tags like this:
     {% my_tag name='Toto' surname="Tata" age=32 size=1.70 person=object.get_person %}
     In this syntax, arguments order is not important.
-    
+
     You can provide default argument values with the parameter default_arguments.
     """
     arguments = {}
     args = split_arguments(token.contents)
-    
+
     for (arg_name, arg_value) in iteritems(default_arguments):
         arguments[arg_name] = arg_value
-    
+
     for arg in args:
         argument = decode_tag_argument(arg)
         arguments[argument['name']] = argument['value']
-    
+
     return arguments
